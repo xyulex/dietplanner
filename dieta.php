@@ -5,7 +5,7 @@
  * Time: 20:52
  */
 define('KCAL', 460); // #kcal daily (LUNCH + DINNER).
-define('DAYS', 7);   // DÍAS a realizar la dieta.
+define('DAYS', 2);   // DÍAS a realizar la dieta.
 
 class Dieta {
 
@@ -18,6 +18,7 @@ class Dieta {
         }
         return $connection;
     }
+
 
     // Grabar platos.
     public function setDish($name, $kcal, $type){
@@ -60,21 +61,32 @@ class Dieta {
         $segundos = $this->getDishes(2); // Ligeros
         $dias = 0;
         $week = array(); // Array de toda la semana
-        $week[] = array();
-        $week[][] = array();
-
+        
         $primeros2 = array_rand($primeros, DAYS);
         $segundos2 = array_rand($segundos, DAYS);
 
+            // Comida
             foreach($primeros2 as $id){
                 $week[$dias]['comida']['primero'] = $primeros[$id];
+                unset($primeros[$id]); // Borrar platos
                 ++$dias;
+
             }
 
             $dias = 0;
             foreach($segundos2 as $id){
                 $week[$dias]['comida']['segundo'] = $segundos[$id];
+                unset($segundos[$id]); // Borrar platos
                 ++$dias;
+            }
+           
+            //Cenas
+            $primeros = array_values($primeros);
+            $segundos = array_values($segundos);
+
+            for ($i=0; $i<DAYS; $i++) {
+                $week[$i]['cena']['primero'] = $primeros[$i];
+                $week[$i]['cena']['segundo'] = $segundos[$i];
             }
         return $week;
     }
@@ -82,5 +94,19 @@ class Dieta {
     // Grabar dietas en BD.
     public function saveWeek() {
 
+    }
+
+    // Introducir ingredientes.
+    public function saveIng() {
+
+    }
+
+    public function getIng() {
+
+    }
+
+    // Generar lista de la compra.
+    public function generateList() {
+        
     }
 }
