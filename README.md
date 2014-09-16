@@ -1,4 +1,4 @@
-dietplanner
+PHP Diet Planner
 ===========
 
-Diet planner
+Diet planner.
