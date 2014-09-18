@@ -57,36 +57,36 @@ class Dieta {
 
     // Realizar dieta semanal.
     public function combineDishes() {
-        $primeros = $this->getDishes(1); // Primeros platos
-        $segundos = $this->getDishes(2); // Ligeros
+        $firsts = $this->getDishes(1); // first platos
+        $seconds = $this->getDishes(2); // Ligeros
         $dias = 0;
         $week = array(); // Array de toda la semana
         
-        $primeros2 = array_rand($primeros, DAYS);
-        $segundos2 = array_rand($segundos, DAYS);
+        $idfirsts = array_rand($firsts, DAYS);
+        $idseconds = array_rand($seconds, DAYS);
 
             // Comida
-            foreach($primeros2 as $id){
-                $week[$dias]['comida']['primero'] = $primeros[$id];
-                unset($primeros[$id]); // Borrar platos
+            foreach($idfirsts as $idfirst){
+                $week[$dias]['lunch']['first'] = $firsts[$idfirst];
+                unset($first[$idfirst]); // Borrar platos
                 ++$dias;
 
             }
 
             $dias = 0;
-            foreach($segundos2 as $id){
-                $week[$dias]['comida']['segundo'] = $segundos[$id];
-                unset($segundos[$id]); // Borrar platos
+            foreach($idseconds as $idsecond){
+                $week[$dias]['lunch']['second'] = $seconds[$idsecond];
+                unset($seconds[$idsecond]); // Borrar platos
                 ++$dias;
             }
            
-            //Cenas
-            $primeros = array_values($primeros);
-            $segundos = array_values($segundos);
+            //Dinners
+            $first = array_values($first);
+            $segundos = array_values($seconds);
 
             for ($i=0; $i<DAYS; $i++) {
-                $week[$i]['cena']['primero'] = $primeros[$i];
-                $week[$i]['cena']['segundo'] = $segundos[$i];
+                $week[$i]['dinner']['first'] = $firsts[$i];
+                $week[$i]['dinner']['second'] = $seconds[$i];
             }
         return $week;
     }
@@ -97,11 +97,11 @@ class Dieta {
     }
 
     // Introducir ingredientes.
-    public function saveIng() {
+    public function saveIng($dishid) {
 
     }
 
-    public function getIng() {
+    public function getIng($dishid) {
 
     }
 
