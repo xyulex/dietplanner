@@ -10,7 +10,7 @@
   <div class="navbar-collapse collapse navbar-inverse-collapse">
     <ul class="nav navbar-nav">
       <li><a href="#" id="adddish">Nuevo plato</a></li>
-      <li><a href="#">Lista de platos</a></li>            
+      <li><a href="#" id="dishlist">Lista de platos</a></li>            
       </li>
     </ul>
     <form class="navbar-form navbar-right">
