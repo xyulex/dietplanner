@@ -10,7 +10,7 @@ require_once('../settings.php'); ?>
       <span class="icon-bar"></span>
       <span class="icon-bar"></span>
     </button>
-    <a class="navbar-brand" href="#" id="home">DietPlanner</a>
+    <a class="navbar-brand" href="<?php echo $CFG->templatedir ?>/jumbotron.php">DietPlanner</a>
   </div>
   <div class="navbar-collapse collapse navbar-inverse-collapse">
     <ul class="nav navbar-nav">
