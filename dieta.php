@@ -9,40 +9,34 @@ define('DAYS', 2);   // DÍAS a realizar la dieta.
 
 class Dieta {
 
-    public function connect() {
+    public function __construct() {        
         $connection = mysqli_connect("localhost","root","","diet");
 
         if (mysqli_connect_errno()) {
             echo "Failed to connect to MySQL: " . mysqli_connect_error();
             return false;
         }
+
+        $this->connection = $connection;
         return $connection;
     }
 
+    
 
-    // Grabar platos.
-    public function setDish($name, $kcal, $type){
-        $connection = $this->connect();
-        if ($connection) {
-            $sql = "INSERT INTO dishes(name,kcal,type) VALUES(".$name.",".$kcal.",".$type.")";
-            $result = mysqli_query($connection,$sql);
-            return true;
-        }
-    }
 
-    // Obtener platos de un tipo.
+    /**** Getters ****/    
+
+    // Get dishes type.
     public function getDishes($type){
-        $dishes = array(); // Array de los platos de cada tipo
-
-        $connection = $this->connect();
-
-        if ($connection) {
+        $dishes = array();
+            if ($this->connection){
             $sql = "SELECT * FROM dishes WHERE type=" . $type;
-            $result = mysqli_query($connection,$sql);
+            $result = mysqli_query($this->connection,$sql);
 
             if ($result) {
                 while($row = mysqli_fetch_array($result)){
                     $currentdish = array();
+                    $currentdish['id'] = $row['id'];
                     $currentdish['name'] = $row['name'];
                     $currentdish['kcal'] = $row['kcal'];
                     $dishes[] = $currentdish;
@@ -51,44 +45,78 @@ class Dieta {
 
                 return $dishes;
             }
-            return false;
-        }
+            }
+            return false;        
     }
 
-    // Realizar dieta semanal.
+    // Get weekly diet.
     public function combineDishes() {
-        $firsts = $this->getDishes(1); // first platos
+        $firsts = $this->getDishes(1); // Main platos
         $seconds = $this->getDishes(2); // Ligeros
-        $dias = 0;
+        $numdays = 0;
         $week = array(); // Array de toda la semana
         
-        $idfirsts = array_rand($firsts, DAYS);
-        $idseconds = array_rand($seconds, DAYS);
+        $idfirsts   = array_rand($firsts, DAYS);
+        $idseconds  = array_rand($seconds, DAYS);
 
-            // Comida
+            // Lunches
             foreach($idfirsts as $idfirst){
-                $week[$dias]['lunch']['first'] = $firsts[$idfirst];
-                unset($first[$idfirst]); // Borrar platos
-                ++$dias;
+                $week[$numdays]['lunch']['first'] = $firsts[$idfirst];
+                unset($firsts[$idfirst]); 
+                ++$numdays;
 
             }
 
-            $dias = 0;
+            $numdays = 0;
             foreach($idseconds as $idsecond){
-                $week[$dias]['lunch']['second'] = $seconds[$idsecond];
-                unset($seconds[$idsecond]); // Borrar platos
-                ++$dias;
+                $week[$numdays]['lunch']['second'] = $seconds[$idsecond];                
+                ++$numdays;
             }
            
             //Dinners
-            $first = array_values($first);
+            $firsts = array_values($firsts);
             $segundos = array_values($seconds);
 
-            for ($i=0; $i<DAYS; $i++) {
+            for ($i=1; $i<DAYS; $i++) {
                 $week[$i]['dinner']['first'] = $firsts[$i];
                 $week[$i]['dinner']['second'] = $seconds[$i];
             }
         return $week;
+    }
+
+    // Get dish ingredients. Depends on generateList funcion.
+    public function getIngredients($iddish) {
+        if ($this->connection) {
+            $sql = "SELECT weight,i.name from dishes d, ingredients i where d.id = i.iddishes and i.iddishes = ". $iddish;
+            $result = mysqli_query($this->connection,$sql);
+            
+            if ($result->num_rows == 0) {
+                return 'No ingredients yet for this dish';
+            } else {
+                while($row = mysqli_fetch_array($result)){
+                    $currentingredient = array();
+                    $currentingredient['name'] = $row['name'];
+                    $currentingredient['weight'] = $row['weight'];
+                    $ingredients[] = $currentingredient;
+                    unset($currentingredient);
+                }               
+                return $ingredients; 
+            }
+        }
+        return false;
+    }
+
+    
+
+    /**** Setters ****/ 
+
+    // Grabar platos.
+    public function setDish($name, $kcal, $type){
+        if ($this->connection) {
+            $sql = "INSERT INTO dishes(name,kcal,type) VALUES(".$name.",".$kcal.",".$type.")";
+            $result = mysqli_query($this->connection,$sql);
+            return true;
+        }
     }
 
     // Grabar dietas en BD.
@@ -101,9 +129,8 @@ class Dieta {
 
     }
 
-    public function getIng($dishid) {
-
-    }
+    
+    
 
     // Generar lista de la compra.
     public function generateList() {
