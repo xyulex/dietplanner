@@ -1,4 +1,6 @@
 <?php require_once('mainbar.php'); ?>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+
 <form class="form-horizontal" id="adddish-form">
   <fieldset>
     <legend>Añadir plato</legend>
@@ -34,6 +36,19 @@
           </label>
         </div>
       </div>
+      <div class="form-group">
+      <label class="col-lg-2 control-label">Ingredientes</label>
+      <div class="col-lg-10">   
+        <div class="ui-widget">    
+          <input id="ingredient-field" class="ingredient-field form-control"/>
+        </div>
+      </div>
+      
+      <div class="form-group">
+     
+
+    </div>
+
     </div>
       <div class="form-group">
       <label for="textArea" class="col-lg-2 control-label">Comentarios</label>

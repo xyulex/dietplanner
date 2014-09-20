@@ -14,4 +14,14 @@ jQuery(document).ready(function(){
 
 		});	
 	});
+
+
+	// Autocomplete.
+	$( "#ingredient-field" ).autocomplete({
+            source: "../requests/searchingredient.php",
+            minLength: 1,
+            select: function( event, ui ) {
+            		console.log(ui.item.value);
+					}
+    });
 });
