@@ -14,8 +14,10 @@ require_once('../settings.php'); ?>
   </div>
   <div class="navbar-collapse collapse navbar-inverse-collapse">
     <ul class="nav navbar-nav">
-      <li><a href="<?php echo $CFG->adddish_form ?>" id="adddish">Nuevo plato</a></li>
-      <li><a href="<?php echo $CFG->dishlist ?>" >Lista de platos</a></li>            
+      <li><a href="<?php echo $CFG->adddish_form ?>" id="adddish"><span class="glyphicon glyphicon-plus"></span>&nbsp;&nbsp;&nbsp;Nuevo plato</a></li>
+      <li><a href="<?php echo $CFG->dishlist ?>" ><span class="glyphicon glyphicon-list"></span>&nbsp;&nbsp;&nbsp;Lista de platos</a></li>            
+      <li><a href='#'><span class="glyphicon glyphicon-calendar"></span>&nbsp;&nbsp;&nbsp;Lista de la compra</a></li>
+      
       </li>
     </ul>
     <form class="navbar-form navbar-right">
