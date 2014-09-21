@@ -82,6 +82,7 @@ class Dieta{
     }
 
     // Get dish ingredients. Depends on generateList funcion.
+    
     public function getIngredients($iddish) {
         $db = new Database(DB_SERVER, DB_USER, DB_PASS, DB_DATABASE);
         $db->connect();
@@ -129,12 +130,25 @@ class Dieta{
     }
 
     // Introducir ingredientes.
-    public function saveIng($dishid) {
+    public function setIngredients($iddish, $ingredientsarray) {
+        $db = new Database(DB_SERVER, DB_USER, DB_PASS, DB_DATABASE);
+        $db->connect();
 
-    }
+        $ingredientsarray = explode(',', $ingredientsarray);
+        foreach($ingredientsarray as $ingredientarray) {
+            $ingredientarray = explode('_', $ingredientarray);
 
-    
-    
+            if ($ingredientarray[0]) {
+                $data = new stdClass();
+                $data->iddishes = $iddish;
+                $data->idingredient = $ingredientarray[1];
+                $data->weight = $ingredientarray[0];
+                $idinsert = $db->query_insert("ingredients", $data);                
+            }
+
+        }
+        $db->close();
+    }    
 
     // Generar lista de la compra.
     public function generateList() {

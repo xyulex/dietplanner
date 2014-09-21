@@ -5,9 +5,9 @@
     $q = strtolower($_GET["term"]);
 
   $return = array();
-    $query = mysql_query("select name from ingredients where name like '%$q%'") or die(mysql_error());
+    $query = mysql_query("select id,name from ingredients_name where name like '%$q%'") or die(mysql_error());
     while ($row = mysql_fetch_array($query)) {
-      array_push($return,array('label'=>$row['name'],'value'=>$row['name']));
+      array_push($return,array('id' =>$row['id'], 'label'=>$row['name'],'value'=>$row['name']));
   }
   echo(json_encode($return));
 

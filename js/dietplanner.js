@@ -1,7 +1,7 @@
 jQuery(document).ready(function(){  
 
 	$("#adddish-btn").click(function() {
-		var data = 'name=' + $('#dishname').val() + '&type=2&kcal=' + $('#dishkcal').val();
+		var data = 'name=' + $('#dishname').val() + '&type=2&kcal=' + $('#dishkcal').val() + '&ingredientes=' + $('#ingoculto').val();
 		
         $.ajax({
 			type: "POST",
@@ -27,7 +27,9 @@ jQuery(document).ready(function(){
 	            		$("#gramos-btn").hide();
 	            		$("#gramos").keyup(function(){
 		            		if ($("#gramos").val() > 0){
-		            			valor = ui.item.value;
+		            			cantidad = $(this).val();
+		            			idingrediente = ui.item.id;
+		            			ingrediente = ui.item.value;
 		            			$("#gramos-btn").show();
 		            		} else{
 		            			$("#gramos-btn").hide();
@@ -36,12 +38,14 @@ jQuery(document).ready(function(){
 					}
     });
 
+    
+
     $("#gramos-btn").click(function(){
     	$("#ingredients-selected").show();
-    	$("#ingredients-selected-ta").val($("#ingredients-selected-ta").val() + '<p>' + $("#gramos").val() + ' gr de ' + valor + '</p>');
-    	$("#ingredient-field").val('');
-    	$("#gramos, #gramos-group").hide();    	
-
+    	$("#ingredients-selected-ta").val($("#ingredients-selected-ta").val() + cantidad + ' gr de ' + ingrediente + ',');
+    	$("#ingoculto").val($("#ingoculto").val() + cantidad + '_' + idingrediente + ',');
+    	$("#ingredient-field, #gramos").val('');
+    	$("#gramos, #gramos-group").hide(); 
     });
 
 });

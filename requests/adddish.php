@@ -4,6 +4,7 @@ $diet = new Dieta();
 $name = $_POST['name'];
 $kcal = $_POST['kcal'];
 $dish = $_POST['type'];
-
-$diet->setDish($name, $kcal, $dish);
+$iddish = $diet->setDish($name, $kcal, $dish);
+$ingredientsarray = $_POST['ingredientes'];
+$diet->setIngredients($iddish, $ingredientsarray);
 ?>
