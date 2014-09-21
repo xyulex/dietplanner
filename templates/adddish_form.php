@@ -1,7 +1,14 @@
 <?php require_once('mainbar.php'); ?>
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
 
-<form class="form-horizontal" id="adddish-form">
+
+<div class="alert alert-dismissable alert-danger" id="error">
+  <button type="button" class="close" data-dismiss="alert">×</button>
+  Revisa los campos marcados
+</div>
+
+
+<form class="form-horizontal" id="adddish-form" accept-charset="utf-8">
   <fieldset>
     <legend>Añadir plato</legend>
     <div class="form-group">
@@ -25,13 +32,13 @@
       <div class="col-lg-10">
         <div class="radio">
           <label>
-            <input name="optionsRadios" id="optionsRadios1" value="option1" checked="" type="radio">
+            <input name="optionsRadios" id="optionsRadios1" value="1" checked="" type="radio">
             Primer plato
           </label>
         </div>
         <div class="radio">
           <label>
-            <input name="optionsRadios" id="optionsRadios2" value="option2" type="radio">
+            <input name="optionsRadios" id="optionsRadios2" value="2" type="radio">
             Segundo plato
           </label>
         </div>
