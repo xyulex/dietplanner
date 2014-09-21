@@ -38,18 +38,33 @@
       </div>
       <div class="form-group">
       <label class="col-lg-2 control-label">Ingredientes</label>
-      <div class="col-lg-10">   
+      <div class="col-lg-2">   
         <div class="ui-widget">    
           <input id="ingredient-field" class="ingredient-field form-control"/>
         </div>
       </div>
+
+      <div class="form-group" id="gramos-group">
+      <div class="col-lg-2">
+        <label class="sr-only" for="gramos">Password</label>
+        <input type="text" class="form-control" id="gramos" placeholder="Gramos">
+      </div>
+      <div class="col-lg-2">
+      <a href="#"><span class="glyphicon glyphicon-plus" style="top:10px" id="gramos-btn"></span></a>
+      </div>
+      </div> 
+
       
-      <div class="form-group">
-     
 
     </div>
+    <div class="form-group" id="ingredients-selected">
+      <label for="ingredients-selected" class="col-lg-2 control-label">Ingredientes escogidos</label>
+      <div class="col-lg-6">
+      <textarea class="form-control" rows="3" id="ingredients-selected-ta"></textarea>
+      
+      </div>
+      </div>  
 
-    </div>
       <div class="form-group">
       <label for="textArea" class="col-lg-2 control-label">Comentarios</label>
       <div class="col-lg-10">
