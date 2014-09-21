@@ -51,33 +51,24 @@ class Dieta{
         $firsts = $this->getDishes(1); // Main platos
         $seconds = $this->getDishes(2); // Ligeros
         $numdays = 0;
-        $week = array(); // Array de toda la semana
-        
-        $idfirsts   = array_rand($firsts, DAYS);
-        $idseconds  = array_rand($seconds, DAYS);
+        $week = array(); // Array de toda la semana        
+               
+        shuffle($firsts);        
+        shuffle($seconds);        
 
-            // Lunches
-            foreach($idfirsts as $idfirst){
-                $week[$numdays]['lunch']['first'] = $firsts[$idfirst];
-                unset($firsts[$idfirst]); 
-                ++$numdays;
+        for($i=0;$i<DAYS;$i++){
+            $week[$i]['lunch']['first'] = $firsts[$i];            
+            $week[$i]['lunch']['second'] = $seconds[$i];
+        }
 
-            }
+        $cont = 0;
 
-            $numdays = 0;
-            foreach($idseconds as $idsecond){
-                $week[$numdays]['lunch']['second'] = $seconds[$idsecond];                
-                ++$numdays;
-            }
-           
-            //Dinners
-            $firsts = array_values($firsts);
-            $segundos = array_values($seconds);
+        for($i=DAYS;$i<=(DAYS*2)-1;$i++){
+            $week[$cont]['dinner']['first'] = $firsts[$i];            
+            $week[$cont]['dinner']['second'] = $seconds[$i];
+            ++$cont;
+        }
 
-            for ($i=1; $i<DAYS; $i++) {
-                $week[$i]['dinner']['first'] = $firsts[$i];
-                $week[$i]['dinner']['second'] = $seconds[$i];
-            }
         return $week;
     }
 
