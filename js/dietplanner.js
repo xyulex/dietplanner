@@ -18,8 +18,8 @@ jQuery(document).ready(function(){
 			url:  '../requests/adddish.php',
 			data:  data,
 			success:  function(html){				
-				location.href='../requests/dishlist.php';
-			}
+					location.href='../requests/dishlist.php';
+				  }
 
 		});	
 	});
@@ -36,8 +36,8 @@ jQuery(document).ready(function(){
 	            		$("#gramos,#gramos-group").show();
 	            		$("#gramos-btn").hide();
 	            		$("#gramos").keyup(function(){
-		            		if ($("#gramos").val() > 0){
-		            			cantidad = $(this).val();
+	            			cantidad = $(this).val();
+		            		if (cantidad > 0){
 		            			idingrediente = ui.item.id;
 		            			ingrediente = ui.item.value;
 		            			$("#gramos-btn").show();
