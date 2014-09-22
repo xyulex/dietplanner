@@ -1,8 +1,8 @@
 <?php
 
 require_once('../templates/mainbar.php'); 
-require_once('../classes/Dieta.class.php');
-$diet = new Dieta();
+require_once('../classes/Diet.class.php');
+$diet = new Diet();
 
 $dishesarray = $diet->getDishes(1);
 $dishesarray2 = $diet->getDishes(2);
