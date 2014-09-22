@@ -6477,9 +6477,19 @@ label,
 
 
 /*** Custom CSS ****/
-#adddish-form, #dishlist-tbl {
+#adddish-form{
   width: 80%;
   margin:auto;  
+}
+
+#dishlist-tbl{
+  width:95%;
+  margin: auto;  
+}
+#dishlist-tbl td {
+    font-size: 1.1em;
+    height:100%;
+
 }
 
 
@@ -6500,7 +6510,3 @@ ul.ui-autocomplete li.ui-menu-item {
 
 }
 
-ul.ui-autocomplete li.ui-menu-item:hover, 
-ul.ui-autocomplete li.ui-state-hover:hover{
-  
-}

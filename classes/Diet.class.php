@@ -5,7 +5,7 @@
  * Time: 20:52
  */
 define('KCAL', 460); // #kcal daily (LUNCH + DINNER).
-define('DAYS', 3);   // DÍAS a realizar la dieta.
+define('DAYS', 7);   // DÍAS a realizar la dieta.
 define('MEALS', DAYS *4);
 define('DB_SERVER', "localhost");
 define('DB_USER', "root");
@@ -67,7 +67,7 @@ class Diet{
         shuffle($seconds);        
 
         
-        if (MEALS < $this->getTotalDishes()){
+        if (MEALS <= $this->getTotalDishes()){
             for($i=0;$i<DAYS;$i++){
                 $week[$i]['lunch']['first'] = $firsts[$i];            
                 $week[$i]['lunch']['second'] = $seconds[$i];
