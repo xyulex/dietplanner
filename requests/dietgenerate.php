@@ -25,60 +25,33 @@ for($i=0; $i<DAYS; $i++){
 $data = '<div id="dishlist-tbl">';
 $data .= '<legend>Cuadro semanal</legend>';
 $data .= '<table class="table table-striped table-hover">';
-$data .= $th.'<tr>';
+$data .= $th.'</tr><tr>';
 $cont = 0;
 
-foreach($combineds as $combined) {
-	if ($cont == 0) {
-		$data.= '<td class="success">COMIDA</td><td>1r plato</td>';
-	}
+$a = 0;
+$i = 0;
 
-	$data .= '<td>' . $combined['lunch']['first']['name']. '</td>';	
-	$data .= '<td class="success">' . $combined['lunch']['first']['kcal']. '</td>';
-
-	++$cont;
-	if ($cont == DAYS) {
-
-		$data .= '</tr><tr><td></td><td>2o plato</td>';
-	}
+while($i < count($combineds)){
 	
-}
+	$cena = '';
+	foreach($combineds as $combined) {
+		if ($a == 0){
+			$data .= '<td colspan=2>COMIDA</td>';
+		}
+		
+		if (!empty($combined[$i]['name'])) { 
+			$data .= '<td width="20%">'.$combined[$i]['name'].'</td><td>'.$combined[$i]['kcal'].'</td>';		
+		}
+		$a++;
 
-foreach($combineds as $combined) {
-	$data .= '<td>' . $combined['lunch']['second']['name']. '</td>';
-	$data .= '<td class="success">' . $combined['lunch']['second']['kcal']. '</td>';
-}	
-
-$data .= '</tr>';
-$cont = 0;
-
-foreach($combineds as $combined) {
-	if ($cont == 0) {
-		$data.= '<td class="success">CENA</td><td>1r plato</td>';
-
+		if ($i == 1){ $cena ='CENA'; }
+		if ($a % DAYS == 0){			
+			$data.='<tr><tr><td colspan=2>' . $cena . '</td>';
+		}		
 	}
-	$data .= '<td>' . $combined['dinner']['first']['name']. '</td>';	
-	$data .= '<td class="success">' . $combined['dinner']['first']['kcal']. '</td>';
-
-	++$cont;
-	if ($cont == DAYS) {
-		$data .= '</tr><tr><td></td><td>2o plato</td>';
-	}
+$i++;
 }
 
-foreach($combineds as $combined) {
-	$data .= '<td>' . $combined['dinner']['second']['name']. '</td>';
-	$data .= '<td class="success">' . $combined['dinner']['second']['kcal']. '</td>';
-}
-
-$data .= '</tr><tr><td colspan =3></td>';
-
-foreach($combineds as $combined) {
-	$data.= '<td><strong>' . $combined['totalkcal'] . '</strong></td><td></td>';
-	++$i;
-}
 $data.='</tr></table>';
-
 echo $data;
-
 ?>
