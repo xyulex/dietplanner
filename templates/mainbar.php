@@ -1,5 +1,7 @@
 <?php 
-require_once('../settings.php'); ?>
+require_once('../settings.php'); 
+header('Content-Type: text/html; charset=utf-8');
+?>
 <link href="<?php echo $CFG->dircss ?>"type='text/css' rel='stylesheet'>
 <script src="<?php echo $CFG->jquery ?>" type="text/javascript"></script>
 <script src="<?php echo $CFG->dietjs ?>" type="text/javascript"></script>

@@ -31,7 +31,7 @@ class Diet{
             while($row = $db->fetch_array($rows)){
                 $currentdish = array();
                 $currentdish['id'] = $row['id'];
-                $currentdish['name'] = $row['name'];
+                $currentdish['name'] = utf8_encode($row['name']);
                 $currentdish['kcal'] = $row['kcal'];
                 $dishes[] = $currentdish;
                 unset($currentdish);
@@ -103,7 +103,7 @@ class Diet{
         } else {
             while($row = $db->fetch_array($rows)){
                 $currentingredient = array();
-                $currentingredient['name'] = $row['name'];
+                $currentingredient['name'] = utf8_encode($row['name']);
                 $currentingredient['weight'] = $row['weight'];
                 $ingredients[] = $currentingredient;
                 unset($currentingredient);
@@ -124,7 +124,7 @@ class Diet{
         $db = new Database(DB_SERVER, DB_USER, DB_PASS, DB_DATABASE);
         $db->connect();
         $data = new stdClass();
-        $data->name = $name;
+        $data->name = utf8_decode($name);
         $data->kcal = $kcal;
         $data->type = $type;
         $idinsert = $db->query_insert("dishes", $data);

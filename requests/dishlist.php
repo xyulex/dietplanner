@@ -21,7 +21,7 @@ $data = '<div id="dishlist-tbl">';
 $data .= '<legend>Lista de platos</legend>';
 $data .= '<table class="table table-striped table-hover"><th>Nombre</th><th>Kcal</th><th>Acciones</th>';
 foreach($dishesarray as $disharray) {
-	$data .= '<tr><td><a href="http://localhost/dietplanner/requests/getDish.php?id=' .$disharray['id'].'">'.utf8_encode($disharray['name']).'</a></td>';
+	$data .= '<tr><td><a href="http://localhost/dietplanner/requests/getDish.php?id=' .$disharray['id'].'">'.$disharray['name'].'</a></td>';
 	$data .= '<td>'.$disharray['kcal'].'</td>';
 	$data .= '<td><span class="glyphicon glyphicon-pencil" alt="Editar"></span></button></td></tr>';	
 }
