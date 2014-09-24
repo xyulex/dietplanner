@@ -5,7 +5,7 @@
  * Time: 20:52
  */
 define('KCAL', 460); // #kcal daily (LUNCH + DINNER).
-define('DAYS', 7);   // DÍAS a realizar la dieta.
+define('DAYS', 3);   // DÍAS a realizar la dieta.
 define('MEALS', DAYS *4);
 define('DB_SERVER', "localhost");
 define('DB_USER', "root");
@@ -68,9 +68,11 @@ class Diet{
 
         
         if (MEALS <= $this->getTotalDishes()){
-            for($i=0;$i<DAYS;$i++){
+            for($i=0;$i<DAYS;$i++) {
                 $week[$i]['lunch']['first'] = $firsts[$i];            
                 $week[$i]['lunch']['second'] = $seconds[$i];
+                $kcallunch[$i] = $week[$i]['lunch']['first']['kcal'] +  $week[$i]['lunch']['second']['kcal'];
+
             }
 
             $cont = 0;
@@ -78,8 +80,20 @@ class Diet{
             for($i=DAYS;$i<=(DAYS*2)-1;$i++){
                 $week[$cont]['dinner']['first'] = $firsts[$i];            
                 $week[$cont]['dinner']['second'] = $seconds[$i];
+                
+                $kcaldinner[$cont] = $week[$cont]['dinner']['first']['kcal'] + $week[$cont]['dinner']['second']['kcal'];
                 ++$cont;
             }
+
+           // Total kcal
+            $i = 0;
+            $totali = array();
+            while($i < count($kcallunch)){
+            
+                $totali[$i] = $kcallunch[$i] + $kcaldinner[$i];                
+                $week[$i]['totalkcal'] = $totali[$i];
+                $i++;
+            } 
 
             return $week;            
 
@@ -99,7 +113,7 @@ class Diet{
         $rows = $db->query($sql);
                 
         if ($rows->affected_rows == 0) {
-            return 'No ingredients yet for this dish';
+            return 'No existen ingredientes para este plato';
         } else {
             while($row = $db->fetch_array($rows)){
                 $currentingredient = array();

@@ -27,6 +27,7 @@ $data .= '<legend>Cuadro semanal</legend>';
 $data .= '<table class="table table-striped table-hover">';
 $data .= $th.'<tr>';
 $cont = 0;
+
 foreach($combineds as $combined) {
 	if ($cont == 0) {
 		$data.= '<td class="success">COMIDA</td><td>1r plato</td>';
@@ -70,7 +71,13 @@ foreach($combineds as $combined) {
 	$data .= '<td class="success">' . $combined['dinner']['second']['kcal']. '</td>';
 }
 
-$data .= '</tr></table>';
+$data .= '</tr><tr><td colspan =3></td>';
+
+foreach($combineds as $combined) {
+	$data.= '<td><strong>' . $combined['totalkcal'] . '</strong></td><td></td>';
+	++$i;
+}
+$data.='</tr></table>';
 
 echo $data;
 
