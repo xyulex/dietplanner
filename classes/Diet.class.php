@@ -6,6 +6,7 @@
  */
 define('KCAL', 460); // #kcal daily (LUNCH + DINNER).
 define('DAYS', 3);   // DÍAS a realizar la dieta.
+define('MEALSDAY', 4);
 define('MEALS', DAYS *4);
 define('DB_SERVER', "localhost");
 define('DB_USER', "root");
@@ -57,7 +58,7 @@ class Diet{
     }
 
     // Get weekly diet.
-    public function combineDishes() {        
+    public function combineDishesOld() {        
         $firsts = $this->getDishes(1); // Main platos
         $seconds = $this->getDishes(2); // Ligeros
         $numdays = 0;
@@ -175,5 +176,58 @@ class Diet{
     // Generar lista de la compra.
     public function generateList() {
         
+    }
+
+
+    public function combineDishes() { 
+        $db = new Database(DB_SERVER, DB_USER, DB_PASS, DB_DATABASE);
+        $db->connect();
+
+        $firsts = $this->getDishes(1); // Main platos
+        $seconds = $this->getDishes(2); // Ligeros
+
+        $arraydias = array();
+        $kcalarray = array();
+
+        $total = 0;
+        $numcomidas = 0;            
+        $numdias = 0;
+
+        $i = 0;
+
+        $totalDishes = array_merge($firsts,$seconds);
+
+        foreach($totalDishes as $dish) {
+
+            $kcalarray[$i]['name'] = $dish['name'];
+            $kcalarray[$i]['kcal'] = $dish['kcal'];
+            $i++;
+            shuffle($kcalarray);
+        }
+       
+
+        foreach($kcalarray as $key => $kcal) { 
+           if($total <= (KCAL / 0.9) && $numdias < DAYS) {
+                if ( $numcomidas <= MEALSDAY) {    
+                    $total  = $total + $kcal['kcal'];
+                    if ($total <= (KCAL / 0.9)){
+                        $arraydias[$numdias][$numcomidas]['name'] = $kcal['name'];                        
+                        $arraydias[$numdias][$numcomidas]['kcal'] = $kcal['kcal'];                        
+                        $numcomidas ++; 
+                        if ($numcomidas == MEALSDAY) {
+                            $total = 0;
+                            $numcomidas = 0;
+                            $numdias++;
+                        }
+                    } else {
+                        $numdias++;
+                        $numcomidas = 0;
+                        $total = 0;
+                    }            
+                } 
+                
+            }
+        }
+        return $arraydias;
     }
 }
