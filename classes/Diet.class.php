@@ -5,7 +5,7 @@
  * Time: 20:52
  */
 define('KCAL', 460); // #kcal daily (LUNCH + DINNER).
-define('DAYS', 3);   // DÍAS a realizar la dieta.
+define('DAYS', 4);   // DÍAS a realizar la dieta.
 define('MEALSDAY', 4);
 define('MEALS', DAYS *4);
 define('DB_SERVER', "localhost");
@@ -55,53 +55,6 @@ class Diet{
         $rows = $db->query($sql);
         
         return $db->affected_rows;
-    }
-
-    // Get weekly diet.
-    public function combineDishesOld() {        
-        $firsts = $this->getDishes(1); // Main platos
-        $seconds = $this->getDishes(2); // Ligeros
-        $numdays = 0;
-        $week = array(); // Array de toda la semana        
-               
-        shuffle($firsts);        
-        shuffle($seconds);        
-
-        
-        if (MEALS <= $this->getTotalDishes()){
-            for($i=0;$i<DAYS;$i++) {
-                $week[$i]['lunch']['first'] = $firsts[$i];            
-                $week[$i]['lunch']['second'] = $seconds[$i];
-                $kcallunch[$i] = $week[$i]['lunch']['first']['kcal'] +  $week[$i]['lunch']['second']['kcal'];
-
-            }
-
-            $cont = 0;
-
-            for($i=DAYS;$i<=(DAYS*2)-1;$i++){
-                $week[$cont]['dinner']['first'] = $firsts[$i];            
-                $week[$cont]['dinner']['second'] = $seconds[$i];
-                
-                $kcaldinner[$cont] = $week[$cont]['dinner']['first']['kcal'] + $week[$cont]['dinner']['second']['kcal'];
-                ++$cont;
-            }
-
-           // Total kcal
-            $i = 0;
-            $totali = array();
-            while($i < count($kcallunch)){
-            
-                $totali[$i] = $kcallunch[$i] + $kcaldinner[$i];                
-                $week[$i]['totalkcal'] = $totali[$i];
-                $i++;
-            } 
-
-            return $week;            
-
-        } else {
-
-            return 'Tengo '. $this->getTotalDishes() . ' platos y necesito ' . MEALS;            
-        }
     }
 
     // Get dish ingredients. Depends on generateList funcion.
@@ -179,6 +132,7 @@ class Diet{
     }
 
 
+    // Get weekly diet.
     public function combineDishes() { 
         $db = new Database(DB_SERVER, DB_USER, DB_PASS, DB_DATABASE);
         $db->connect();
@@ -207,12 +161,13 @@ class Diet{
        
 
         foreach($kcalarray as $key => $kcal) { 
-           if($total <= (KCAL / 0.9) && $numdias < DAYS) {
+           if($total <= (KCAL / 0.95) && $numdias < DAYS) {
                 if ( $numcomidas <= MEALSDAY) {    
                     $total  = $total + $kcal['kcal'];
-                    if ($total <= (KCAL / 0.9)){
+                    if ($total <= (KCAL / 0.95)){
                         $arraydias[$numdias][$numcomidas]['name'] = $kcal['name'];                        
                         $arraydias[$numdias][$numcomidas]['kcal'] = $kcal['kcal'];                        
+                        $arraydias[$numdias]['totalkcal'] = $total;
                         $numcomidas ++; 
                         if ($numcomidas == MEALSDAY) {
                             $total = 0;
@@ -228,6 +183,7 @@ class Diet{
                 
             }
         }
+
         return $arraydias;
     }
 }

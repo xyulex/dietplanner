@@ -14,7 +14,9 @@ if (!is_array($combineds)) {
 	return false;
 }
 
-$weekdays = array('LUNES', 'MARTES', 'MIERCOLES', 'JUEVES', 'VIERNES', 'SABADO', 'DOMINGO');
+
+
+$weekdays = array('LUNES', 'MARTES', 'MIÉRCOLES', 'JUEVES', 'VIERNES', 'SÁBADO', 'DOMINGO');
 
 
 $th = '<th></th><th></th>';
@@ -27,12 +29,13 @@ $data .= '<legend>Cuadro semanal</legend>';
 $data .= '<table class="table table-striped table-hover">';
 $data .= $th.'</tr><tr>';
 $cont = 0;
+$totalkcal = array();
 
 $a = 0;
 $i = 0;
 
 while($i < count($combineds)){
-	
+	$totalkcal[] = $combineds[$i]['totalkcal'];	
 	$cena = '';
 	foreach($combineds as $combined) {
 		if ($a == 0){
@@ -41,17 +44,28 @@ while($i < count($combineds)){
 		
 		if (!empty($combined[$i]['name'])) { 
 			$data .= '<td width="20%">'.$combined[$i]['name'].'</td><td>'.$combined[$i]['kcal'].'</td>';		
+
 		}
+
 		$a++;
+
 
 		if ($i == 1){ $cena ='CENA'; }
 		if ($a % DAYS == 0){			
 			$data.='<tr><tr><td colspan=2>' . $cena . '</td>';
 		}		
+		
 	}
+
+	
 $i++;
 }
 
-$data.='</tr></table>';
+$data.='</tr><tr><td colspan=2></td>';
+foreach($totalkcal as $total) {
+	$data .= '<td></td><td>' . $total . '</td>';
+}
+
+$data .= '</tr></table>';
 echo $data;
 ?>
