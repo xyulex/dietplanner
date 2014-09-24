@@ -50,10 +50,12 @@ while($i < count($combineds)){
 		$a++;
 
 
-		if ($i == 1){ $cena ='CENA'; }
-		if ($a % DAYS == 0){			
+		if ($i == 1){ $cena = "CENA"; }
+
+		if (($a % DAYS == 0) && ($i != 3)){			
 			$data.='<tr><tr><td colspan=2>' . $cena . '</td>';
-		}		
+		}	
+			
 		
 	}
 
