@@ -3,6 +3,7 @@
  	gramos 			= $("#gramos");
 	gramosbtn 		= $("#gramos-btn");
 	gramosgrp 		= $("#gramos-group");
+	ingaddfield		= $("#ingaddfield")	
 	ingselected 	= $("#ingredients-selected");
 	ingselectedta 	= $("#ingredients-selected-ta");
 	ingfield    	= $("#ingredient-field");
@@ -11,10 +12,10 @@
 
 
 	// Initializers
-	gramosgrp.hide();
+	gramosgrp.hide();	
+	ingaddfield.hide();
 	ingselected.hide();
-	error.hide();
-	
+	error.hide();	
 	ingselectedta.val('');
 
 
@@ -43,11 +44,20 @@
 		});	
 	});
 
-
+	
 	// Add ingredients > Autocomplete.	
+	minLength = 3;
 	ingfield.autocomplete({
             source: "../requests/searchingredient.php",
-            minLength: 1,
+            minLength: minLength,
+            response: function( event, ui ) {
+            			$(".ui-helper-hidden-accessible").hide();
+						if (ui.content.length === 0 && ingfield.val().length > minLength) {
+							$('#ingaddfield').show().html("<a href=../requests/addingredient_form.php?name=" + ingfield.val() + ">¿Añadir " + ingfield.val() + " como ingrediente?</a>");
+						} else {
+							$('#ingaddfield').html('').hide();
+						}
+					},
             select: function( event, ui ) {
 		            	gramos.show();
 		            	gramosgrp.show();

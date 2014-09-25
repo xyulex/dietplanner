@@ -1,5 +1,5 @@
 <?php require_once('mainbar.php'); ?>
-<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
 
 
 <div class="alert alert-dismissable alert-danger" id="error">
@@ -49,6 +49,7 @@
         <div class="ui-widget">    
           <input id="ingredient-field" class="ingredient-field form-control"/>
         </div>
+        <div class="col-lg-10" id="ingaddfield"></div>    
       </div>
 
       <div class="form-group" id="gramos-group">
