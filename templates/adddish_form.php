@@ -1,5 +1,19 @@
 <?php require_once('mainbar.php'); ?>
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
+<script>
+ function addIngredient(name){ 
+      var data = "name=" + name;
+        $.ajax({
+      type: "POST",
+      url:  '../requests/addingredient.php',
+      data: data,
+      success:  function(html){       
+          console.log('Added ' +  name + ' succesfully!');
+      }
+
+      }); 
+    }
+</script>
 
 
 <div class="alert alert-dismissable alert-danger" id="error">

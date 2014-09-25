@@ -126,6 +126,17 @@ class Diet{
         $db->close();
     }    
 
+    
+    // Añadir un ingrediente.
+    public function addIngredient($name) {
+        $db = new Database(DB_SERVER, DB_USER, DB_PASS, DB_DATABASE);
+        $db->connect();
+        $data = new stdClass();
+        $data->name = $name;
+        $idinsert = $db->query_insert("ingredients_name", $data);
+        $db->close();
+    }
+
     // Generar lista de la compra.
     public function generateList() {
         
