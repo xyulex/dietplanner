@@ -48,9 +48,8 @@
       <div class="col-lg-2">   
         <div class="ui-widget">    
           <input id="ingredient-field" class="ingredient-field form-control"/>
-        </div>
-        <div class="col-lg-10" id="ingaddfield"></div>    
-      </div>
+        </div>        
+      </div>      
 
       <div class="form-group" id="gramos-group">
       <div class="col-lg-2">
@@ -61,6 +60,13 @@
       <a href="#"><span class="glyphicon glyphicon-plus" style="top:10px" id="gramos-btn"></span></a>
       </div>
       </div> 
+
+      <div class="form-group">
+      
+        <div class="col">
+        <div id="ingaddfield"></div>    
+        </div>
+      </div>
 
       
 
