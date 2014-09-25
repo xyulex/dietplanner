@@ -6503,6 +6503,9 @@ ul.ui-autocomplete {
   position: relative;
   font-size:0.7em;
   z-index: 1;
+  max-height: 100px;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 ul.ui-autocomplete li.ui-menu-item {
