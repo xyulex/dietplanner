@@ -1,5 +1,7 @@
-<?php require_once('mainbar.php'); ?>
-<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
+<?php require_once('mainbar.php'); 
+global $CFG;
+?>
+<script src="<?php echo $CFG->jqueryui ?>"></script>
 <script>
  function addIngredient(name){ 
       var data = "name=" + name;
