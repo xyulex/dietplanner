@@ -14,8 +14,6 @@ if (!is_array($combineds)) {
 	return false;
 }
 
-
-
 $weekdays = array('LUNES', 'MARTES', 'MIÉRCOLES', 'JUEVES', 'VIERNES', 'SÁBADO', 'DOMINGO');
 
 

@@ -16,7 +16,13 @@ define('DB_DATABASE', "diet");
 require_once('Database.class.php');
 
 
-class Diet{    
+class Diet{  
+
+    public function prettyPrint($array) {
+       echo '<pre>';
+       print_r($array);
+       echo '</pre>';
+    }
    
     /**** Getters ****/    
 
@@ -172,15 +178,21 @@ class Diet{
        
 
         foreach($kcalarray as $key => $kcal) { 
-           if($total <= (KCAL / 0.95) && $numdias < DAYS) {
+
+           if($total <= (KCAL) && $numdias < DAYS) {
                 if ( $numcomidas <= MEALSDAY) {    
                     $total  = $total + $kcal['kcal'];
-                    if ($total <= (KCAL / 0.95)){
+                    if ($total <= (KCAL)){
                         $arraydias[$numdias][$numcomidas]['name'] = $kcal['name'];                        
                         $arraydias[$numdias][$numcomidas]['kcal'] = $kcal['kcal'];                        
                         $arraydias[$numdias]['totalkcal'] = $total;
-                        $numcomidas ++; 
-                        if ($numcomidas == MEALSDAY) {
+                        $numcomidas ++;
+                        if ($numcomidas < MEALSDAY) {
+                            $arraydias[$numdias][$numcomidas]['name'] = ' ';
+                            $arraydias[$numdias][$numcomidas]['kcal'] = ' ';
+
+                        }
+                        if ($numcomidas == MEALSDAY || (KCAL - $total) <=120) {
                             $total = 0;
                             $numcomidas = 0;
                             $numdias++;
@@ -193,6 +205,7 @@ class Diet{
                 } 
                 
             }
+
         }
 
         return $arraydias;
