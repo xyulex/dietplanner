@@ -10,7 +10,8 @@ global $CFG;
       url:  '../requests/addingredient.php',
       data: data,
       success:  function(html){       
-          console.log('Added ' +  name + ' succesfully!');
+          $("#ingredient-field").val();
+          $("#ingaddfield").val('').hide();
       }
 
       }); 

@@ -54,9 +54,9 @@
             minLength: minLength,
             response: function( event, ui ) {
             			$(".ui-helper-hidden-accessible").hide();
-            			kk=ingfield.val();
+            			ingval=ingfield.val();
 						if (ui.content.length === 0 && ingfield.val().length > minLength) {	
-							ingaddfield.show().html("<a href='#' id='ingaddbutton' onclick='addIngredient(kk)'>Añhadir " + ingfield.val() + "</a>");
+							ingaddfield.show().html("<a href='#' id='ingaddbutton' onclick='addIngredient(ingval)'>Añadir " + ingfield.val() + "</a>");
 							
 						} else {
 							$('#ingaddfield').html('').hide();
